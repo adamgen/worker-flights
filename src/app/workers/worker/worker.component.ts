@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Route } from '@angular/router';
 import { map, switchMap } from 'rxjs';
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-worker',
@@ -14,10 +14,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 })
 export class WorkerComponent {
   worker$ = this.activatedRoute.params.pipe(
-    map((p) => {
-      console.log('p["workerId"]', p['workerId']);
-      return p['workerId'];
-    }),
+    map((p) => p['workerId']),
     switchMap((workerId) => {
       return this.httpClient.get<{ id: number; name: string }[]>(
         `/api/flights/${workerId}`
