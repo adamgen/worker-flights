@@ -1,12 +1,11 @@
-<mat-list>
-  <mat-list-item
-    *ngFor="let worker of workers | async"
-    [routerLink]="[worker.id]"
-  >
-    {{ worker.name }}
-  </mat-list-item>
-</mat-list>
-<div>
+<ng-container *ngIf="workers$ | async as workers else loader">
+  <mat-list>
+    <mat-list-item *ngFor="let worker of workers" [routerLink]="[worker.id]">
+      {{ worker.name }}
+    </mat-list-item>
+  </mat-list>
   <router-outlet></router-outlet>
-  <router-outlet name="worker"></router-outlet>
-</div>
+</ng-container>
+<ng-template #loader>
+  <mat-spinner></mat-spinner>
+</ng-template>
