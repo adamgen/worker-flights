@@ -2,9 +2,9 @@
   <mat-list>
     <mat-list-item
       *ngFor="let worker of workers | async"
-      [routerLink]="['workers', worker.replace(' ', '-')]"
+      [routerLink]="['workers', worker.id]"
     >
-      {{ worker }}
+      {{ worker.name }}
     </mat-list-item>
   </mat-list>
   <div>
