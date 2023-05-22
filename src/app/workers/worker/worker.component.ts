@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { map, shareReplay, switchMap, timer } from 'rxjs';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
+import { map, shareReplay, switchMap, tap, timer } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { Flights, WorkerService } from '../worker.service';
@@ -37,7 +42,8 @@ export class WorkerComponent {
   constructor(
     private httpClient: HttpClient,
     private activatedRoute: ActivatedRoute,
-    public workerService: WorkerService
+    public workerService: WorkerService,
+    private router: Router
   ) {
     workerService.workerFlights$ = this.activatedRoute.params.pipe(
       map((p) => p['workerId']),
@@ -47,7 +53,11 @@ export class WorkerComponent {
         return timer(0, minute).pipe(map(() => workerId));
       }),
       switchMap((workerId) => {
-        return this.httpClient.get<Flights[]>(`/api/flights/${workerId}`);
+        return this.httpClient.get<Flights[]>(`/api/flights/${workerId}`).pipe(
+          tap((flights) => {
+            this.router.navigate(['workers', workerId, flights[0].num]);
+          })
+        );
       }),
       shareReplay(1)
     );
