@@ -1,1 +1,22 @@
-<p>flight-info works!</p>
+<ng-container *ngIf="mappedFlights$ | async as workerFlights">
+  <ng-container *ngIf="flightId$ | async as flightId">
+    <mat-list>
+      <mat-list-item>
+        <div [style.display]="'inline-block'" [style.width]="'12rem'">Plane Number</div>
+        {{ workerFlights[flightId].plane }}
+      </mat-list-item>
+      <mat-list-item>
+        <div [style.display]="'inline-block'" [style.width]="'12rem'">Duration of the flight</div>
+        {{ workerFlights[flightId].duration }}
+      </mat-list-item>
+      <mat-list-item>
+        <div [style.display]="'inline-block'" [style.width]="'12rem'">Origin gate</div>
+        {{ workerFlights[flightId].from_gate }}
+      </mat-list-item>
+      <mat-list-item>
+        <div [style.display]="'inline-block'" [style.width]="'12rem'">Destination gate</div>
+        {{ workerFlights[flightId].to_gate }}
+      </mat-list-item>
+    </mat-list>
+  </ng-container>
+</ng-container>

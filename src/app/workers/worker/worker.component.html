@@ -1,4 +1,4 @@
-<ng-container *ngIf="workerFlights$ | async as workerFlights; else loader">
+<ng-container *ngIf="workerService.workerFlights$ | async as workerFlights; else loader">
   <table mat-table [dataSource]="workerFlights" class="mat-elevation-z8">
     <!-- Position Column -->
     <ng-container matColumnDef="num">
