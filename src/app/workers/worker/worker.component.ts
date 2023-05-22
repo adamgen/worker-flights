@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { map, shareReplay, switchMap } from 'rxjs';
+import { map, shareReplay, switchMap, timer } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { Flights, WorkerService } from '../worker.service';
@@ -41,6 +41,11 @@ export class WorkerComponent {
   ) {
     workerService.workerFlights$ = this.activatedRoute.params.pipe(
       map((p) => p['workerId']),
+      switchMap((workerId) => {
+        const second = 1000;
+        const minute = second * 60;
+        return timer(0, minute).pipe(map(() => workerId));
+      }),
       switchMap((workerId) => {
         return this.httpClient.get<Flights[]>(`/api/flights/${workerId}`);
       }),
