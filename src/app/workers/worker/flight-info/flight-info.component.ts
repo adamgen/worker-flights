@@ -5,11 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MinuteDurationPipe } from "../../../minute-duration.pipe";
 
 @Component({
   selector: 'app-flight-info',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatGridListModule],
+  imports: [CommonModule, MatListModule, MatGridListModule, MinuteDurationPipe],
   templateUrl: './flight-info.component.html',
   styleUrls: ['./flight-info.component.scss'],
 })

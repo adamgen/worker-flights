@@ -7,7 +7,7 @@
       </mat-list-item>
       <mat-list-item>
         <div [style.display]="'inline-block'" [style.width]="'12rem'">Duration of the flight</div>
-        {{ workerFlights[flightId].duration }}
+        {{ workerFlights[flightId].duration | minuteDuration }}
       </mat-list-item>
       <mat-list-item>
         <div [style.display]="'inline-block'" [style.width]="'12rem'">Origin gate</div>
