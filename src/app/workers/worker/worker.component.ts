@@ -4,16 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Route } from '@angular/router';
 import { map, switchMap } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-worker',
   standalone: true,
-  imports: [CommonModule, MatProgressSpinnerModule],
+  imports: [CommonModule, MatProgressSpinnerModule, MatTableModule],
   templateUrl: './worker.component.html',
   styleUrls: ['./worker.component.scss'],
 })
 export class WorkerComponent {
-  worker$ = this.activatedRoute.params.pipe(
+  workerFlights$ = this.activatedRoute.params.pipe(
     map((p) => p['workerId']),
     switchMap((workerId) => {
       return this.httpClient.get<{ id: number; name: string }[]>(
@@ -21,6 +22,19 @@ export class WorkerComponent {
       );
     })
   );
+
+  columns = [
+    'num',
+    'from',
+    'to',
+    'from_date',
+    'to_date',
+    // 'workerId',
+    // 'plane',
+    // 'duration',
+    // 'from_gate',
+    // 'to_gate',
+  ];
 
   constructor(
     private httpClient: HttpClient,
