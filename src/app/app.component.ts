@@ -10,15 +10,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterLink,
-    MatListModule,
     HttpClientModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  workers = this.httpClient.get<{ id: number; name: string }[]>('/workers');
 
-  constructor(private httpClient: HttpClient) {}
 }

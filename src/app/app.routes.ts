@@ -4,12 +4,18 @@ import { WorkersComponent } from './workers/workers.component';
 
 export const routes: Routes = [
   {
-    path: 'workers/:workerId',
-    children: [],
+    path: 'workers',
+    component: WorkersComponent,
+    children: [
+      {
+        path: ':workerId',
+        component: WorkerComponent,
+      },
+    ],
   },
   {
-    path: 'workers/:workerId',
-    component: WorkerComponent,
-    outlet: 'worker',
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'workers',
   },
 ];

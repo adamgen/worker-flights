@@ -1,1 +1,12 @@
-<p>workers works!</p>
+<mat-list>
+  <mat-list-item
+    *ngFor="let worker of workers | async"
+    [routerLink]="[worker.id]"
+  >
+    {{ worker.name }}
+  </mat-list-item>
+</mat-list>
+<div>
+  <router-outlet></router-outlet>
+  <router-outlet name="worker"></router-outlet>
+</div>
